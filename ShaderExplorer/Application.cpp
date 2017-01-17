@@ -1,10 +1,18 @@
 #include "Application.h"
+
 #include <GL/glew.h>
+#include <vector>
+
+#include "DebugHelper.h"
 
 //#define HDR_FRAMEBUFFER
 
-Application::Application()
+Application::Application(std::string caption, int width, int height)
 {
+	caption_ = caption;
+	width_ = width;
+	height_ = height;
+
 	window_ = nullptr;
 	renderer_ = Renderer();
 }
@@ -18,7 +26,7 @@ Application::~Application()
 	SDL_Quit();
 }
 
-bool Application::InitWindow(std::string caption, int width, int height)
+bool Application::InitWindow()
 {
 	// Initialize SDL 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -49,9 +57,9 @@ bool Application::InitWindow(std::string caption, int width, int height)
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
 	// Create the window
-	SDL_Window * window = SDL_CreateWindow(caption.c_str(),
+	SDL_Window * window = SDL_CreateWindow(caption_.c_str(),
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		width_, height_, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
 	if (window == nullptr) {
 		fprintf(stderr, "%s: %s\n", "Couldn't set video mode", SDL_GetError());
@@ -101,10 +109,22 @@ void Application::Run()
 
 	renderer_.InitGl();
 
-	// render-loop
-	bool stopRendering = false;
-	while (!stopRendering) {
-		renderer_.Display(window_);
+	Camera example_camera = Camera(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1));
+	Light example_light = Light();
+	Model *example_model = new Model();
+	example_model->LoadModelFromOBJ("../Assets/Models/BigSphere.obj");
+	Object * example_object = new Object(example_model);
+
+
+
+	Scene example_scene = Scene();
+	example_scene.main_camera = example_camera;
+	example_scene.lights.push_back(example_light);
+	example_scene.objects.push_back(example_object);
+	// application loop
+	bool exit = false;
+	while (!exit) {
+		renderer_.Display(window_, &example_scene);
 
 		SDL_GL_SwapWindow(window_);
 		
@@ -116,8 +136,9 @@ void Application::Run()
 
 			// And do our own handling of events.
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE)) {
-				stopRendering = true;
+				exit = true;
 			}
 		}
 	}
+	delete example_object;
 }

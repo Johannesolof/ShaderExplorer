@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShaderExplorer", "ShaderExplorer\ShaderExplorer.vcxproj", "{F0269D4B-3591-486A-8CC2-F5AAA42D644D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestsShaderExplorer", "TestsShaderExplorer\TestsShaderExplorer.vcxproj", "{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{F0269D4B-3591-486A-8CC2-F5AAA42D644D}.Release|x64.Build.0 = Release|x64
 		{F0269D4B-3591-486A-8CC2-F5AAA42D644D}.Release|x86.ActiveCfg = Release|Win32
 		{F0269D4B-3591-486A-8CC2-F5AAA42D644D}.Release|x86.Build.0 = Release|Win32
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Debug|x64.ActiveCfg = Debug|x64
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Debug|x64.Build.0 = Debug|x64
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Debug|x86.ActiveCfg = Debug|Win32
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Debug|x86.Build.0 = Debug|Win32
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Release|x64.ActiveCfg = Release|x64
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Release|x64.Build.0 = Release|x64
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Release|x86.ActiveCfg = Release|Win32
+		{B4D7405D-E4B8-4247-ADBA-F8D706BB4470}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

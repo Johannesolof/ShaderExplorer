@@ -26,8 +26,6 @@ using std::vector;
 
 namespace DebugHelper
 {
-
-
 	bool CheckGLError(const char *file, int line)
 	{
 		bool wasError = false;
