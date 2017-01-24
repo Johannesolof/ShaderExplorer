@@ -2,8 +2,6 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "Entity.h"
-
 struct Texture {
 	bool valid = false;
 	uint32_t gl_id;
@@ -39,32 +37,34 @@ struct Mesh
 	uint32_t number_of_vertices;
 };
 
-class Model : public Entity
+class Model
 {
 public:
 	~Model();
-	// The name of the whole model
-	std::string name;
-	// The filename of this model 
-	std::string filename;
-	// The materials 
-	std::vector<Material> materials;
-	// A model will contain one or more "Meshes"
-	std::vector<Mesh> meshes;
-	// Buffers on CPU
-	std::vector<glm::vec3> positions;
-	std::vector<glm::vec3> normals;
-	std::vector<glm::vec2> texture_coordinates;
-	// Buffers on GPU
-	uint32_t positions_bo;
-	uint32_t normals_bo;
-	uint32_t texture_coordinates_bo;
-	// Vertex Array Object
-	uint32_t vaob;
-
+	
 	void LoadModelFromOBJ(std::string filename);
 	Texture LoadTexture(const std::string & filename, int nof_components);
 	void Render(const bool submitMaterials = true);
+	
+private:
+	// The name of the whole model
+	std::string name_;
+	// The filename of this model
+	std::string filename_;
+	// The materials 
+	std::vector<Material> materials_;
+	// A model will contain one or more "Meshes"
+	std::vector<Mesh> meshes_;
+	// Buffers on CPU
+	std::vector<glm::vec3> positions_;
+	std::vector<glm::vec3> normals_;
+	std::vector<glm::vec2> texture_coordinates_;
+	// Buffers on GPU
+	uint32_t positions_bo_;
+	uint32_t normals_bo_;
+	uint32_t texture_coordinates_bo_;
+	// Vertex Array Object
+	uint32_t vaob_;
 };
 
-void SaveModelToOBJ(Model * model, std::string filename);
+//void SaveModelToOBJ(Model * model, std::string filename);

@@ -3,15 +3,18 @@
 #include <vector>
 #include "Light.h"
 #include "Object.h"
+#include <memory>
 
 class Scene
 {
 public:
-	Scene() : main_camera(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)) { }
+	Scene(std::shared_ptr<Camera> camera);
 	~Scene();
 
-	Camera main_camera;
-	std::vector<Light> lights;
-	std::vector<Object*> objects;
+	void Update();
+
+	std::shared_ptr<Camera> main_camera;
+	std::vector<std::shared_ptr<Light>> lights;
+	std::vector<std::shared_ptr<Object>> objects;
 };
 

@@ -4,8 +4,10 @@
 class Entity
 {
 public:
-	Entity();
-	~Entity();
+	virtual ~Entity() = default;
+
+	virtual void Update() = 0;
+	
 	Transform transform;
 };
 

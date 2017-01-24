@@ -1,10 +1,12 @@
 #pragma once
 #include "Entity.h"
 
-class Light : Entity
+class Light : public Entity
 {
 public:
 	Light();
 	~Light();
+
+	void Update() override {};
 };
 

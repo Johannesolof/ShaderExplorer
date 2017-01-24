@@ -109,22 +109,28 @@ void Application::Run()
 
 	renderer_.InitGl();
 
-	Camera example_camera = Camera(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1));
-	Light example_light = Light();
-	Model *example_model = new Model();
+
+	int w, h;
+	SDL_GetWindowSize(window_, &w, &h);
+	glm::vec3 cameraPosition(-70.0f, 50.0f, 70.0f);
+	glm::vec3 cameraDirection = normalize(glm::vec3(0.0f) - cameraPosition);
+	std::shared_ptr<Camera> example_camera = std::make_shared<Camera>(cameraPosition, cameraDirection, glm::radians(45.0f), w, h, 5.0f, 500.0f);
+	std::shared_ptr<Light> example_light = std::make_shared<Light>();
+	std::shared_ptr<Model> example_model = std::make_shared<Model>();
 	example_model->LoadModelFromOBJ("../Assets/Models/BigSphere.obj");
-	Object * example_object = new Object(example_model);
+	std::shared_ptr<Object> example_object = std::make_shared<Object>(example_model);
 
+	
 
-
-	Scene example_scene = Scene();
-	example_scene.main_camera = example_camera;
-	example_scene.lights.push_back(example_light);
-	example_scene.objects.push_back(example_object);
+	std::shared_ptr<Scene> example_scene = std::make_shared<Scene>(example_camera);
+	example_scene->lights.push_back(example_light);
+	example_scene->objects.push_back(example_object);
 	// application loop
 	bool exit = false;
 	while (!exit) {
-		renderer_.Display(window_, &example_scene);
+		SDL_GetWindowSize(window_, &w, &h);
+		example_scene->Update();
+		renderer_.Display(window_, example_scene);
 
 		SDL_GL_SwapWindow(window_);
 		
@@ -140,5 +146,4 @@ void Application::Run()
 			}
 		}
 	}
-	delete example_object;
 }
